@@ -32,19 +32,65 @@ using namespace std;
 class StudySessionLog
 {
 private:
-    // ===== Resolve these TODOs later (Part D) =====
-
-    // TODO (Part D): Add a fixed capacity constant of four study sessions.
-    // TODO (Part D): Add an int array named sessionMinutes for the stored session durations.
-    // TODO (Part D): Add an int that tracks how many study sessions are stored.
+    static const int CAPACITY = 4;
+    int sessionMinutes[CAPACITY];
+    int count;
 
 public:
-    // TODO (Part D): Write a constructor that creates an empty log.
-    // TODO (Part D): Write addSession. It receives minutes and reports whether the session was stored.
-    // TODO (Part D): Write totalMinutes as a const member function.
-    // TODO (Part D): Write longestSession as a const member function.
-    // TODO (Part D): Write size as a const member function.
-    // TODO (Part D): Write isEmpty as a const member function.
+    StudySessionLog()
+    {
+        count = 0;
+    }
+
+    bool addSession(int minutes)
+    {
+        if (count == CAPACITY)
+        {
+            return false;
+        }
+
+        sessionMinutes[count] = minutes;
+        count++;
+
+        return true;
+    }
+
+    int totalMinutes() const
+    {
+        int total = 0;
+
+        for (int i = 0; i < count; i++)
+        {
+            total += sessionMinutes[i];
+        }
+
+        return total;
+    }
+
+    int longestSession() const
+    {
+        int longest = sessionMinutes[0];
+
+        for (int i = 1; i < count; i++)
+        {
+            if (sessionMinutes[i] > longest)
+            {
+                longest = sessionMinutes[i];
+            }
+        }
+
+        return longest;
+    }
+
+    int size() const
+    {
+        return count;
+    }
+
+    bool isEmpty() const
+    {
+        return count == 0;
+    }
 };
 
 int main()
